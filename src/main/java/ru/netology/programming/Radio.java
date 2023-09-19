@@ -1,30 +1,39 @@
 package ru.netology.programming;
 
 public class Radio {
-    //КАНАЛЫ
-    public int currentTheChannel;
-    //ЗВУК
-    public int currentVolume;
 
-    public int getCurrentTheChannel() {
-        return currentTheChannel;
+    private int currentStation;
+    private int currentVolume;
+
+    public Radio() {
     }
 
-    //Установка текущего канала
-    public void setCurrentTheChannel(int newCurrentTheChannel) {
-        currentTheChannel = newCurrentTheChannel;
+    public int getCurrentStation() {
+        return currentStation;
     }
 
-    //Переключение каналов
-    public void increaseTheChannel() {
-        if (currentTheChannel > 0) {
-            currentTheChannel = currentTheChannel + 1;
+    public void setCurrentStation(int newCurrentStation) {
+        if (currentStation < 0) {
+            return;
         }
-        if (currentTheChannel < 0) {
-            currentTheChannel = 9;
+        if (currentStation > 9) {
+            return;
         }
-        if (currentTheChannel > 9) {
-            currentTheChannel = 0;
+        currentStation = newCurrentStation;
+    }
+
+    public void nextStation() {
+        if (currentStation < 9) {
+            currentStation++;
+        } else {
+            currentStation = 0;
+        }
+    }
+    public void prevStation() {
+        if (currentStation > 0) {
+            currentStation--;
+        } else {
+            currentStation = 9;
         }
     }
 
@@ -32,20 +41,27 @@ public class Radio {
         return currentVolume;
     }
 
-    //Установка текущего значения звука
     public void setCurrentVolume(int newCurrentVolume) {
+        if (currentVolume < 0) {
+            return;
+        }
+        if (currentVolume > 100) {
+            return;
+        }
         currentVolume = newCurrentVolume;
     }
 
-    //Увеличение звука
     public void increaseVolume() {
         if (currentVolume < 100) {
-            currentVolume = currentVolume + 1;
-        }
-        if (currentVolume > 100) {
+            currentVolume++;
+        } else {
             currentVolume = 100;
         }
-        if (currentVolume < 0) {
+    }
+    public void decreaseVolume() {
+        if (currentVolume > 0) {
+            currentVolume--;
+        } else {
             currentVolume = 0;
         }
     }

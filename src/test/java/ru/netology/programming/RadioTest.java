@@ -255,4 +255,28 @@ public class RadioTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
+    //    НОВЫЕ ТЕСТЫ
+
+    @Test //Переключение станции внутри диапазона
+    public void SwitchForwardStation() {
+        Radio radio = new Radio(20, 150);
+        radio.setCurrentStation(8);
+
+        int expected = 8;
+        int actual = radio.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test // Установить максимальную громкость
+    public void shouldSetolume() {
+        Radio radio = new Radio(20, 150);
+        radio.setCurrentVolume(100);
+
+        int expected = 100;
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
 }

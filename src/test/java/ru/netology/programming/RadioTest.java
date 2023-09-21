@@ -5,13 +5,14 @@ import org.junit.jupiter.api.Test;
 
 public class RadioTest {
 
-    // КАНАЛЫ
+    // СТАНЦИЯ
     @Test //установка минимальной станции
-    public void shouldSetMinStation() {
+    public void shouldSetStation() {
         Radio radio = new Radio();
-        radio.setCurrentStation(1);
+        radio.setCurrentStation(3);
+        radio.setCurrentStation(0);
 
-        int expected = 1;
+        int expected = 0;
         int actual = radio.getCurrentStation();
 
         Assertions.assertEquals(expected, actual);
@@ -20,6 +21,7 @@ public class RadioTest {
     @Test //установка максимальной станции
     public void shouldSetMaxTStation() {
         Radio radio = new Radio();
+        radio.setCurrentStation(3);
         radio.setCurrentStation(9);
 
         int expected = 9;
@@ -83,17 +85,76 @@ public class RadioTest {
     @Test //Переключение на предыдущую станцию
     public void SwitchToThPrevStation() {
         Radio radio = new Radio();
-        radio.setCurrentStation(8);
+        radio.setCurrentStation(5);
 
         radio.prevStation();
 
-        int expected = 7;
+        int expected = 4;
         int actual = radio.getCurrentStation();
 
         Assertions.assertEquals(expected, actual);
     }
 
+    @Test //Переключение cтанции ниже 0
+    public void SwitchingStationBelowMinimum() {
+        Radio radio = new Radio();
+        radio.setCurrentStation(0);
+
+        radio.prevStation();
+
+        int expected = 0;
+        int actual = radio.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test //положительная станция вне диапазона
+    public void positiveStationOutOfRange() {
+        Radio radio = new Radio();
+        radio.setCurrentStation(15);
+
+        int expected = 0;
+        int actual = radio.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test //отрицательная станция вне диапазона
+    public void negativeStationOutOfRange() {
+        Radio radio = new Radio();
+        radio.setCurrentStation(-1);
+
+        int expected = 0;
+        int actual = radio.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+
     //ЗВУК
+
+    @Test // Установить минимальную громкость
+    public void shouldSetMinVolume() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(1);
+
+        int expected = 1;
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test // Установить максимальную громкость
+    public void shouldSetMaxVolume() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(100);
+
+        int expected = 100;
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
 
     @Test // Переключение громкости с 0 на 1
     public void SwitchingVolumeFromMinToOne() {
@@ -147,7 +208,7 @@ public class RadioTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test //Уменьшение громкости
+    @Test //Уменьшение громкости внутри диапазона
     public void decreaseVolume() {
         Radio radio = new Radio();
         radio.setCurrentVolume(50);
@@ -160,9 +221,38 @@ public class RadioTest {
         Assertions.assertEquals(expected, actual);
     }
 
+    @Test //Уменьшение громкости меньше 1
+    public void reducingTheVolumeBelowMinimum() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(0);
 
+        radio.decreaseVolume();
 
+        int expected = 0;
+        int actual = radio.getCurrentVolume();
 
+        Assertions.assertEquals(expected, actual);
+    }
 
+    @Test //Уменьшение громкости меньше 1
+    public void negativeVolumeOutOfRange() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(-50);
 
+        int expected = 0;
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test //Уменьшение громкости меньше 1
+    public void positiveVolumeOutOfRange() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(101);
+
+        int expected = 0;
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
 }

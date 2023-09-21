@@ -10,7 +10,7 @@ public class Radio {
 
     public Radio() {
         this.maxStation = 9;
-        this.maxVolume = 201;
+        this.maxVolume = 100;
     }
 
     public Radio (int stationCount, int volumeCount) {
